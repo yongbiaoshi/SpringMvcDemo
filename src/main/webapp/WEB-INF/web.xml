@@ -28,6 +28,8 @@
     <param-value>classpath:${spring.profiles.active}/logback.xml</param-value>
   </context-param>
 
+  <!-- <listener> <listener-class> org.springframework.web.context.request.RequestContextListener </listener-class> </listener> -->
+
   <listener>
     <listener-class>ch.qos.logback.ext.spring.web.LogbackConfigListener</listener-class>
   </listener>
@@ -89,8 +91,8 @@
     <init-param>
       <param-name>contextClass</param-name>
       <param-value>
-                org.springframework.web.context.support.AnnotationConfigWebApplicationContext
-            </param-value>
+        org.springframework.web.context.support.AnnotationConfigWebApplicationContext
+      </param-value>
     </init-param>
     <!-- Again, config locations must consist of one or more comma- or space-delimited and fully-qualified @Configuration 
       classes -->

@@ -15,14 +15,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         logger.debug("=============Security============");
         logger.debug("Using default configure(HttpSecurity). If subclassed this will potentially override subclass configure(HttpSecurity).");
-        http.authorizeRequests()
+        http.authorizeRequests().anyRequest().permitAll();
+/*        http.authorizeRequests()
             .antMatchers("/resources/**", "/signup", "/about", "/").permitAll()
             .antMatchers("/admin/**").hasRole("ADMIN")
             .antMatchers("/db/**").access("hasRole('ADMIN') and hasRole('DBA')")
             .anyRequest().authenticated()
             .and().formLogin().loginPage("/login").permitAll()
             .and().logout().logoutUrl("/logout").permitAll()
-            .and().httpBasic();
+            .and().httpBasic();*/
 
     }
 }

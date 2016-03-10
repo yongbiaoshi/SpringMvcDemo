@@ -14,6 +14,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.ComponentScan.Filter;
+import org.springframework.context.annotation.FilterType;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.http.CacheControl;
 import org.springframework.http.MediaType;
@@ -41,7 +43,7 @@ import com.tsingda.smd.util.JsonUtil;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = "com.tsingda.smd")
+@ComponentScan(basePackages = "com.tsingda.smd", excludeFilters = {@Filter(type=FilterType.REGEX, pattern="com.tsingda.smd.config.*")})
 public class MvcConfig extends WebMvcConfigurerAdapter {
 
     private final static Logger logger = LoggerFactory.getLogger(MvcConfig.class);
