@@ -29,6 +29,7 @@ import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import com.tsingda.service.payment.api.PaymentServiceConstants;
+import com.tsingda.smd.aspect.ZkLockAspect;
 import com.tsingda.smd.config.factory.PaymentServiceClientFactory;
 import com.tsingda.smd.config.interceptor.FileUploadInterceptor;
 import com.tsingda.utils.ZkClientUtils;
@@ -44,9 +45,9 @@ public class AppConfig {
     @SuppressWarnings("unused")
     private final static Charset DEFAULT_CHARSET = Charset.forName(DEFAULT_CHARSET_VALUE);
 
-    private String paymentServiceZkPath = String.format("/%s/%s/%s", PaymentServiceConstants.PRODUCT, PaymentServiceConstants.SERVICE_NAME,
-            PaymentServiceConstants.SERVICE_VERSION);
-    
+    private String paymentServiceZkPath = String.format("/%s/%s/%s", PaymentServiceConstants.PRODUCT,
+            PaymentServiceConstants.SERVICE_NAME, PaymentServiceConstants.SERVICE_VERSION);
+
     // Thrift 超时时间
     private final static int T_TIMEOUT = 15000;
     /**
@@ -146,9 +147,9 @@ public class AppConfig {
         logger.info("新建ZookeeperClient", client);
         return client;
     }
-    
+
     @Bean
-    public PaymentServiceClientFactory paymentServiceClientFactory(CuratorFramework zkClient) throws Exception{
+    public PaymentServiceClientFactory paymentServiceClientFactory(CuratorFramework zkClient) throws Exception {
         logger.info("新建PaymentServiceClientFactory");
         return new PaymentServiceClientFactory(paymentServiceZkPath, zkClient, T_TIMEOUT);
     }
