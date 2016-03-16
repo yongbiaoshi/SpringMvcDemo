@@ -38,7 +38,7 @@ public class ZkLockAspect {
     @Autowired
     private CuratorFramework zkClient;
 
-    @Pointcut(value = "execution(* com.tsingda.smd.service..AccountService.*(..))")
+    @Pointcut(value = "execution(* com.tsingda.smd.service..AccountService.*(..)) && @annotation(com.tsingda.smd.aspect.annotation.NeedZkLock)")
     private void anyMethodWithZkLock() {
     }// 定义一个切入点
 
@@ -96,7 +96,7 @@ public class ZkLockAspect {
                 logger.info("我的锁：{}", myLockNode);
                 logger.info("当前锁：{}", firstChild);
                 if (myLockNode.endsWith("/" + firstChild)) {
-                    logger.info("获取到锁：", firstChild);
+                    logger.info("获取到锁：{}", firstChild);
                     latch.countDown();
                 } else {
                     logger.info("未获取到锁，继续等待");
