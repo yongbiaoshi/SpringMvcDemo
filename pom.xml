@@ -13,6 +13,7 @@
     <org.springframework.security-version>4.0.3.RELEASE</org.springframework.security-version>
     <org.aspectj-version>1.8.8</org.aspectj-version>
     <org.slf4j-version>1.7.12</org.slf4j-version>
+    <release-train>Gosling-SR4</release-train>
   </properties>
 
   <dependencyManagement>
@@ -23,6 +24,13 @@
         <version>${org.springframework-version}</version>
         <type>pom</type>
         <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework.data</groupId>
+        <artifactId>spring-data-releasetrain</artifactId>
+        <version>${release-train}</version>
+        <scope>import</scope>
+        <type>pom</type>
       </dependency>
     </dependencies>
   </dependencyManagement>
@@ -166,7 +174,6 @@
     <dependency>
       <groupId>org.springframework.data</groupId>
       <artifactId>spring-data-redis</artifactId>
-      <version>1.6.2.RELEASE</version>
     </dependency>
     <dependency>
       <groupId>redis.clients</groupId>
@@ -213,7 +220,19 @@
       <artifactId>aspectjweaver</artifactId>
       <version>1.8.8</version>
     </dependency>
+
+    <dependency>
+      <groupId>org.springframework.data</groupId>
+      <artifactId>spring-data-mongodb</artifactId>
+    </dependency>
   </dependencies>
+  <repositories>
+    <repository>
+      <id>spring-milestone</id>
+      <name>Spring Maven MILESTONE Repository</name>
+      <url>http://repo.spring.io/libs-milestone</url>
+    </repository>
+  </repositories>
   <build>
     <plugins>
       <plugin>

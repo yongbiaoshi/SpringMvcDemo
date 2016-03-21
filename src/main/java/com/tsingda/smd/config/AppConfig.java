@@ -29,14 +29,13 @@ import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import com.tsingda.service.payment.api.PaymentServiceConstants;
-import com.tsingda.smd.aspect.ZkLockAspect;
 import com.tsingda.smd.config.factory.PaymentServiceClientFactory;
 import com.tsingda.smd.config.interceptor.FileUploadInterceptor;
 import com.tsingda.utils.ZkClientUtils;
 
 @Configuration
 @EnableTransactionManagement
-@Import(value = { DataSourceConfig.class, MyBatisConfig.class })
+@Import(value = { DataSourceConfig.class, MyBatisConfig.class, MongoDBConfig.class })
 @PropertySource(value = { "classpath:${spring.profiles.active:dev}/app.properties" })
 public class AppConfig {
 

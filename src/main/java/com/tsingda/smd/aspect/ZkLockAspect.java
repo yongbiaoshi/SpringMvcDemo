@@ -56,13 +56,14 @@ public class ZkLockAspect {
         PathChildrenCache cache = null;
         Map<String, Object> mapResult = null;
         if (!StringUtils.isEmpty(lockNode)) {
-            logger.warn("@NeedZkLock需要指定非空lockNode，否则会失效");
             CountDownLatch latch = new CountDownLatch(1);
             mapResult = getLock(lockNode, latch, needZkLock.zkLockType());
             cache = (PathChildrenCache) mapResult.get(LOCK_NODE_PARENT_LISTENER_KEY);
             lockNode = (String) mapResult.get(LOCK_NODE_PATH_KEY);
             // 等待获取到锁
             latch.await();
+        } else {
+            logger.warn("@NeedZkLock需要指定非空lockNode，否则会失效");
         }
 
         // 2、执行业务方法
