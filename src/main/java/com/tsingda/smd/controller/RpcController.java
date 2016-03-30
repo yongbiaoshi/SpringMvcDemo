@@ -7,16 +7,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.tsingda.service.payment.api.PaymentServiceConstants;
 import com.tsingda.smd.config.factory.PaymentServiceClientFactory;
 import com.tsingda.smd.model.Account;
 import com.tsingda.smd.service.AccountService;
 
 @Controller
 public class RpcController {
-
-    private static String SERVICE_PATH = String.format("/%s/%s/%s/%s", "rpc", PaymentServiceConstants.PRODUCT,
-            PaymentServiceConstants.SERVICE_NAME, PaymentServiceConstants.SERVICE_VERSION);
     
     @Autowired
     private CuratorFramework zkCleint;

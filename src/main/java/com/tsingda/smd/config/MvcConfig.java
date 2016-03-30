@@ -29,6 +29,7 @@ import org.springframework.http.converter.feed.AtomFeedHttpMessageConverter;
 import org.springframework.http.converter.feed.RssChannelHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.http.converter.xml.Jaxb2RootElementHttpMessageConverter;
+import org.springframework.http.converter.xml.MappingJackson2XmlHttpMessageConverter;
 import org.springframework.http.converter.xml.SourceHttpMessageConverter;
 import org.springframework.validation.Validator;
 import org.springframework.validation.beanvalidation.OptionalValidatorFactoryBean;
@@ -42,12 +43,13 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 import com.tsingda.smd.config.interceptor.FileUploadInterceptor;
 import com.tsingda.smd.util.JsonUtil;
+import com.tsingda.smd.util.XmlUtil;
 
 @Configuration
 @EnableWebMvc
 @EnableAspectJAutoProxy
 @EnableSpringDataWebSupport
-@ComponentScan(basePackages = "com.tsingda.smd", excludeFilters = {@Filter(type=FilterType.REGEX, pattern="com.tsingda.smd.config.*")})
+@ComponentScan(basePackages = "com.tsingda.smd", excludeFilters = { @Filter(type = FilterType.REGEX, pattern = "com.tsingda.smd.config.*") })
 public class MvcConfig extends WebMvcConfigurerAdapter {
 
     private final static Logger logger = LoggerFactory.getLogger(MvcConfig.class);
@@ -65,6 +67,9 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
 
     private final MappingJackson2HttpMessageConverter jsonMessageConverter = new MappingJackson2HttpMessageConverter(
             JsonUtil.objectMapper);
+
+    private final MappingJackson2XmlHttpMessageConverter xmlMessageConverter = new MappingJackson2XmlHttpMessageConverter(
+            XmlUtil.xmlMapper);
 
     public MvcConfig() {
         super();
@@ -101,12 +106,12 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
         stringMessageConverter.setWriteAcceptCharset(false);
         List<MediaType> types = new ArrayList<MediaType>();
         types.add(TEXT_PLAIN_UTF8);
-        types.add(MediaType.APPLICATION_JSON_UTF8);
+//        types.add(MediaType.APPLICATION_JSON_UTF8);
         types.add(TEXT_HTML_UTF8);
         stringMessageConverter.setSupportedMediaTypes(types);
         converters.add(stringMessageConverter);
         converters.add(this.jsonMessageConverter);
-
+        converters.add(this.xmlMessageConverter);
     }
 
     /**
