@@ -36,7 +36,7 @@ public class JsonUtil {
         objectMapper.setLocale(Locale.CHINA);
         DateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");
         objectMapper.setDateFormat(dateFormat);
-        objectMapper.enableDefaultTyping(DefaultTyping.NON_FINAL, As.PROPERTY);
+        objectMapper.enableDefaultTyping(DefaultTyping.NON_FINAL, As.PROPERTY);//启用默认类型作为属性@class
         objectMapper.configure(Feature.ALLOW_UNQUOTED_FIELD_NAMES, true);// 允许使用非双引号属性名
         objectMapper.configure(Feature.ALLOW_SINGLE_QUOTES, true);// 允许单引号包信属性名
         objectMapper.configure(Feature.ALLOW_NUMERIC_LEADING_ZEROS, true);// 允许JSON整数以多个0开始
