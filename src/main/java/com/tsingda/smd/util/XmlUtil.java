@@ -33,12 +33,14 @@ public class XmlUtil {
         xmlMapper.setLocale(Locale.CHINA);
         DateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");
         xmlMapper.setDateFormat(dateFormat);
+        // xmlMapper.enableDefaultTyping(DefaultTyping.NON_FINAL, As.PROPERTY);
         xmlMapper.configure(Feature.ALLOW_UNQUOTED_FIELD_NAMES, true);// 允许使用非双引号属性名
         xmlMapper.configure(Feature.ALLOW_SINGLE_QUOTES, true);// 允许单引号包信属性名
         xmlMapper.configure(Feature.ALLOW_NUMERIC_LEADING_ZEROS, true);// 允许JSON整数以多个0开始
         xmlMapper.configure(DeserializationFeature.FAIL_ON_IGNORED_PROPERTIES, false);
         xmlMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         xmlMapper.configure(DeserializationFeature.READ_UNKNOWN_ENUM_VALUES_AS_NULL, false);
+
         typeFactory = xmlMapper.getTypeFactory();
     }
 
@@ -61,11 +63,12 @@ public class XmlUtil {
             JsonMappingException, IOException {
         return (T) xmlMapper.readValue(xml, typeReference);
     }
-    
-    public static <T> T changeType(Object obj, Class<T> clazz) throws JsonParseException, JsonMappingException, IOException{
+
+    public static <T> T changeType(Object obj, Class<T> clazz) throws JsonParseException, JsonMappingException,
+            IOException {
         return parse(stringify(obj), clazz);
     }
-    
+
     public static ArrayType constructArrayType(Class<?> elementType) {
         return typeFactory.constructArrayType(elementType);
     }
@@ -75,12 +78,13 @@ public class XmlUtil {
         return typeFactory.constructCollectionType(collectionClass, elementClass);
     }
 
-    public MapType constructMapType(@SuppressWarnings("rawtypes") Class<? extends Map> mapClass, Class<?> keyClass, Class<?> valueClass) {
+    public MapType constructMapType(@SuppressWarnings("rawtypes") Class<? extends Map> mapClass, Class<?> keyClass,
+            Class<?> valueClass) {
         return typeFactory.constructMapType(mapClass, keyClass, valueClass);
     }
 
     public static void main(String[] args) throws IOException {
-        
+
         User u = new User();
         u.setName("王立博");
         u.setAge(18);
@@ -91,9 +95,9 @@ public class XmlUtil {
         User r = parse(xml, User.class);
         System.out.println(r.getAddress() == null);
         logger.debug("User is : {}", r);
-        
-//        Assert.notNull(null);
-        
+
+        // Assert.notNull(null);
+
         ArrayType t = constructArrayType(User.class);
         System.out.println(stringify(t));
     }

@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.hibernate.validator.HibernateValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.ComponentScan.Filter;
 import org.springframework.context.annotation.Configuration;
@@ -65,12 +66,6 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
      */
     private final static int VALIDATION_MESSAGES_CACHE_SECONS = 60;
 
-    private final MappingJackson2HttpMessageConverter jsonMessageConverter = new MappingJackson2HttpMessageConverter(
-            JsonUtil.objectMapper);
-
-    private final MappingJackson2XmlHttpMessageConverter xmlMessageConverter = new MappingJackson2XmlHttpMessageConverter(
-            XmlUtil.xmlMapper);
-
     public MvcConfig() {
         super();
         logger.debug("==========MvcConfig init=================");
@@ -106,12 +101,23 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
         stringMessageConverter.setWriteAcceptCharset(false);
         List<MediaType> types = new ArrayList<MediaType>();
         types.add(TEXT_PLAIN_UTF8);
-//        types.add(MediaType.APPLICATION_JSON_UTF8);
+        // types.add(MediaType.APPLICATION_JSON_UTF8);
         types.add(TEXT_HTML_UTF8);
         stringMessageConverter.setSupportedMediaTypes(types);
         converters.add(stringMessageConverter);
-        converters.add(this.jsonMessageConverter);
-        converters.add(this.xmlMessageConverter);
+        converters.add(mappingJackson2HttpMessageConverter());
+        converters.add(mappingJackson2XmlHttpMessageConverter());
+    }
+
+    @Bean
+    public MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter() {
+        return new MappingJackson2HttpMessageConverter(JsonUtil.objectMapper);
+    }
+    
+    @Bean
+    public MappingJackson2XmlHttpMessageConverter mappingJackson2XmlHttpMessageConverter(){
+        MappingJackson2XmlHttpMessageConverter converter = new MappingJackson2XmlHttpMessageConverter(XmlUtil.xmlMapper);
+        return converter;
     }
 
     /**

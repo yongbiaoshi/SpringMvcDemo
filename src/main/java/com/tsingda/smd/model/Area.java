@@ -2,9 +2,6 @@ package com.tsingda.smd.model;
 
 import java.io.Serializable;
 
-import javax.xml.bind.annotation.XmlRootElement;
-
-@XmlRootElement(name = "area")
 public class Area implements Serializable {
     
     /** 

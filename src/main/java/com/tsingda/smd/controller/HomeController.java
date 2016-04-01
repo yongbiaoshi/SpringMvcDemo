@@ -167,6 +167,12 @@ public class HomeController {
         file.transferTo(new File("D:/temp/" + file.getOriginalFilename()));
         return "success";
     }
+    
+    @RequestMapping(value = "user/get/{ids}", method = RequestMethod.GET)
+    public @ResponseBody User getUser(@PathVariable String ids) throws JsonParseException, JsonMappingException, IOException {
+        User user = userService.selectByPrimaryKey(ids);
+        return user;
+    }
 
     @RequestMapping(value = "user/{ids}", method = RequestMethod.GET)
     public @ResponseBody User user(@PathVariable String ids) throws JsonParseException, JsonMappingException, IOException {

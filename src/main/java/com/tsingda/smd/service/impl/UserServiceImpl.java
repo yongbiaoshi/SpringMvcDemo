@@ -59,8 +59,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User selectFromRedis(String key) throws JsonParseException, JsonMappingException, IOException {
-        Object obj = userOps.opsForValue().get(key);
-        return JsonUtil.changeType(obj, User.class);
+        User user = userOps.opsForValue().get(key);
+        return user;
     }
 
     @Override
