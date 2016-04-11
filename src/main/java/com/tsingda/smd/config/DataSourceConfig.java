@@ -111,6 +111,8 @@ public class DataSourceConfig {
         template.setValueSerializer(genericJackson2JsonRedisSerializer);
         template.setHashValueSerializer(genericJackson2JsonRedisSerializer);
 
+        template.setEnableTransactionSupport(true);
+        
         return template;
     }
 
@@ -121,6 +123,7 @@ public class DataSourceConfig {
 
     @Bean
     public GenericJackson2JsonRedisSerializer genericJackson2JsonRedisSerializer() {
-        return new GenericJackson2JsonRedisSerializer(JsonUtil.objectMapper);
+        GenericJackson2JsonRedisSerializer serializer = new GenericJackson2JsonRedisSerializer(JsonUtil.objectMapper);
+        return serializer;
     }
 }

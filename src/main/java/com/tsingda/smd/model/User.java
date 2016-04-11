@@ -9,13 +9,13 @@ import org.hibernate.validator.constraints.Range;
 
 public class User implements Serializable {
 
-    /** 
+    /**
      * serialVersionUID
-     */ 
+     */
     private static final long serialVersionUID = 1173410405827641434L;
 
     private String ids;
-    
+
     @NotBlank(groups = { ValidatorGroups.UserAdd.class }, message = "{user.add.name.NotBlank.message}")
     @Size(max = 50, min = 6, message = "{user.add.name.Size.message}")
     private String name;
