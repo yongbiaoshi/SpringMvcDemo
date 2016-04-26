@@ -7,7 +7,7 @@ public class Area implements Serializable {
     /** 
      * serialVersionUID
      */ 
-    private static final long serialVersionUID = 5832865156230045586L;
+    private static final long serialVersionUID = 1533181555305352855L;
 
     private String areaCode;
 
@@ -24,7 +24,7 @@ public class Area implements Serializable {
     }
 
     public void setAreaCode(String areaCode) {
-        this.areaCode = areaCode == null ? null : areaCode.trim();
+        this.areaCode = areaCode;
     }
 
     public String getTopAreaCode() {
@@ -32,7 +32,7 @@ public class Area implements Serializable {
     }
 
     public void setTopAreaCode(String topAreaCode) {
-        this.topAreaCode = topAreaCode == null ? null : topAreaCode.trim();
+        this.topAreaCode = topAreaCode;
     }
 
     public String getAreaName() {
@@ -40,7 +40,7 @@ public class Area implements Serializable {
     }
 
     public void setAreaName(String areaName) {
-        this.areaName = areaName == null ? null : areaName.trim();
+        this.areaName = areaName;
     }
 
     public String getAreaLevel() {
@@ -48,7 +48,7 @@ public class Area implements Serializable {
     }
 
     public void setAreaLevel(String areaLevel) {
-        this.areaLevel = areaLevel == null ? null : areaLevel.trim();
+        this.areaLevel = areaLevel;
     }
 
     public String getIsLast() {
@@ -56,6 +56,7 @@ public class Area implements Serializable {
     }
 
     public void setIsLast(String isLast) {
-        this.isLast = isLast == null ? null : isLast.trim();
+        this.isLast = isLast;
     }
+
 }

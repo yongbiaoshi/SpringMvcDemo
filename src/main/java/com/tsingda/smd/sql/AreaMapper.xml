@@ -1,17 +1,106 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.tsingda.smd.dao.mapper.AreaMapper" >
-  <resultMap id="BaseResultMap" type="com.tsingda.smd.model.Area" >
-    <id column="area_code" property="areaCode" jdbcType="VARCHAR" />
-    <result column="top_area_code" property="topAreaCode" jdbcType="VARCHAR" />
-    <result column="area_name" property="areaName" jdbcType="VARCHAR" />
-    <result column="area_level" property="areaLevel" jdbcType="CHAR" />
-    <result column="is_last" property="isLast" jdbcType="CHAR" />
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tsingda.smd.dao.mapper.AreaMapper">
+  <resultMap id="BaseResultMap" type="com.tsingda.smd.model.Area">
+    <id column="area_code" jdbcType="VARCHAR" property="areaCode" />
+    <result column="top_area_code" jdbcType="VARCHAR" property="topAreaCode" />
+    <result column="area_name" jdbcType="VARCHAR" property="areaName" />
+    <result column="area_level" jdbcType="CHAR" property="areaLevel" />
+    <result column="is_last" jdbcType="CHAR" property="isLast" />
   </resultMap>
-  <sql id="Base_Column_List" >
+  <sql id="Base_Column_List">
     area_code, top_area_code, area_name, area_level, is_last
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from mst_area
+    where area_code = #{areaCode,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from mst_area
+    where area_code = #{areaCode,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.tsingda.smd.model.Area">
+    insert into mst_area (area_code, top_area_code, area_name, 
+      area_level, is_last)
+    values (#{areaCode,jdbcType=VARCHAR}, #{topAreaCode,jdbcType=VARCHAR}, #{areaName,jdbcType=VARCHAR}, 
+      #{areaLevel,jdbcType=CHAR}, #{isLast,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tsingda.smd.model.Area">
+    insert into mst_area
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="areaCode != null">
+        area_code,
+      </if>
+      <if test="topAreaCode != null">
+        top_area_code,
+      </if>
+      <if test="areaName != null">
+        area_name,
+      </if>
+      <if test="areaLevel != null">
+        area_level,
+      </if>
+      <if test="isLast != null">
+        is_last,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="areaCode != null">
+        #{areaCode,jdbcType=VARCHAR},
+      </if>
+      <if test="topAreaCode != null">
+        #{topAreaCode,jdbcType=VARCHAR},
+      </if>
+      <if test="areaName != null">
+        #{areaName,jdbcType=VARCHAR},
+      </if>
+      <if test="areaLevel != null">
+        #{areaLevel,jdbcType=CHAR},
+      </if>
+      <if test="isLast != null">
+        #{isLast,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tsingda.smd.model.Area">
+    update mst_area
+    <set>
+      <if test="topAreaCode != null">
+        top_area_code = #{topAreaCode,jdbcType=VARCHAR},
+      </if>
+      <if test="areaName != null">
+        area_name = #{areaName,jdbcType=VARCHAR},
+      </if>
+      <if test="areaLevel != null">
+        area_level = #{areaLevel,jdbcType=CHAR},
+      </if>
+      <if test="isLast != null">
+        is_last = #{isLast,jdbcType=CHAR},
+      </if>
+    </set>
+    where area_code = #{areaCode,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tsingda.smd.model.Area">
+    update mst_area
+    set top_area_code = #{topAreaCode,jdbcType=VARCHAR},
+      area_name = #{areaName,jdbcType=VARCHAR},
+      area_level = #{areaLevel,jdbcType=CHAR},
+      is_last = #{isLast,jdbcType=CHAR}
+    where area_code = #{areaCode,jdbcType=VARCHAR}
+  </update>
+  <resultMap id="BaseResultMap" type="com.tsingda.smd.model.Area">
+    <id column="area_code" jdbcType="VARCHAR" property="areaCode" />
+    <result column="top_area_code" jdbcType="VARCHAR" property="topAreaCode" />
+    <result column="area_name" jdbcType="VARCHAR" property="areaName" />
+    <result column="area_level" jdbcType="CHAR" property="areaLevel" />
+    <result column="is_last" jdbcType="CHAR" property="isLast" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    area_code, top_area_code, area_name, area_level, is_last
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from mst_area
@@ -20,80 +109,8 @@
   <select id="selectAll" resultMap="BaseResultMap">
       select * from mst_area;
   </select>
-  <select id="selectByParentCode" resultMap="BaseResultMap" parameterType="string">
+  <select id="selectByParentCode" parameterType="string" resultMap="BaseResultMap">
       select * from mst_area where top_area_code = #{parentCode, jdbcType=VARCHAR}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
-    delete from mst_area
-    where area_code = #{areaCode,jdbcType=VARCHAR}
-  </delete>
-  <insert id="insert" parameterType="com.tsingda.smd.model.Area" >
-    insert into mst_area (area_code, top_area_code, area_name, 
-      area_level, is_last)
-    values (#{areaCode,jdbcType=VARCHAR}, #{topAreaCode,jdbcType=VARCHAR}, #{areaName,jdbcType=VARCHAR}, 
-      #{areaLevel,jdbcType=CHAR}, #{isLast,jdbcType=CHAR})
-  </insert>
-  <insert id="insertSelective" parameterType="com.tsingda.smd.model.Area" >
-    insert into mst_area
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="areaCode != null" >
-        area_code,
-      </if>
-      <if test="topAreaCode != null" >
-        top_area_code,
-      </if>
-      <if test="areaName != null" >
-        area_name,
-      </if>
-      <if test="areaLevel != null" >
-        area_level,
-      </if>
-      <if test="isLast != null" >
-        is_last,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="areaCode != null" >
-        #{areaCode,jdbcType=VARCHAR},
-      </if>
-      <if test="topAreaCode != null" >
-        #{topAreaCode,jdbcType=VARCHAR},
-      </if>
-      <if test="areaName != null" >
-        #{areaName,jdbcType=VARCHAR},
-      </if>
-      <if test="areaLevel != null" >
-        #{areaLevel,jdbcType=CHAR},
-      </if>
-      <if test="isLast != null" >
-        #{isLast,jdbcType=CHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.tsingda.smd.model.Area" >
-    update mst_area
-    <set >
-      <if test="topAreaCode != null" >
-        top_area_code = #{topAreaCode,jdbcType=VARCHAR},
-      </if>
-      <if test="areaName != null" >
-        area_name = #{areaName,jdbcType=VARCHAR},
-      </if>
-      <if test="areaLevel != null" >
-        area_level = #{areaLevel,jdbcType=CHAR},
-      </if>
-      <if test="isLast != null" >
-        is_last = #{isLast,jdbcType=CHAR},
-      </if>
-    </set>
-    where area_code = #{areaCode,jdbcType=VARCHAR}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.tsingda.smd.model.Area" >
-    update mst_area
-    set top_area_code = #{topAreaCode,jdbcType=VARCHAR},
-      area_name = #{areaName,jdbcType=VARCHAR},
-      area_level = #{areaLevel,jdbcType=CHAR},
-      is_last = #{isLast,jdbcType=CHAR}
-    where area_code = #{areaCode,jdbcType=VARCHAR}
-  </update>
+  
 </mapper>

@@ -5,6 +5,7 @@ import java.util.List;
 import com.tsingda.smd.model.Area;
 
 public interface AreaMapper {
+
     int deleteByPrimaryKey(String areaCode);
 
     int insert(Area record);

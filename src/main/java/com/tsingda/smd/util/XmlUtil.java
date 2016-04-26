@@ -31,7 +31,7 @@ public class XmlUtil {
 
     static {
         xmlMapper.setLocale(Locale.CHINA);
-        DateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         xmlMapper.setDateFormat(dateFormat);
         // xmlMapper.enableDefaultTyping(DefaultTyping.NON_FINAL, As.PROPERTY);
         xmlMapper.configure(Feature.ALLOW_UNQUOTED_FIELD_NAMES, true);// 允许使用非双引号属性名
